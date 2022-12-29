@@ -38,6 +38,14 @@ async function run() {
       res.send(addtasks);
     });
 
+    app.get("/addtask/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const cursor = addTaskCollection.findOne(query);
+      const addtasks = await cursor.toArray();
+      res.send(addtasks);
+    });
+
     app.patch("/addtask/:id", async (req, res) => {
       const id = req.params.id;
       const task = req.body;
